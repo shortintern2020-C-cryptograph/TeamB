@@ -38,3 +38,12 @@ zipp==0.6.0
 flask_marshmallow
 flask_cors
 pymysql
+cryptography
+blueprint
+Cerberus
+Flask-RESTful
+Flask-SQLAlchemy-Session
+python-dotenv
+flask-migrate
+gunicorn
+sqlalchemy_utils
