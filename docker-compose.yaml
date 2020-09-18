@@ -11,6 +11,7 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=hoge
     tty: true
+    command: --innodb-use-native-aio=0
 
   server:
     build: ./server
