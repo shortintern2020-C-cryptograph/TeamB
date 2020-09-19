@@ -46,4 +46,3 @@ Flask-SQLAlchemy-Session
 python-dotenv
 flask-migrate
 gunicorn
-sqlalchemy_utils
