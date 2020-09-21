@@ -1,9 +1,6 @@
 from flask import Flask, jsonify
-
 from flask_restful import Api
-
 from database import init_db
-
 from apis.hoge import HogeListAPI, HogeAPI
 from apis.genre import GenreAPI
 
