@@ -43,7 +43,7 @@ def create_app():
     api.add_resource(AuthorAPI, '/author/<id>')
     api.add_resource(BookListAPI, '/books')
     api.add_resource(BookAPI, '/book/<id>')
-    api.add_resource(GetBookListAPI, '/books/<title>')
+    api.add_resource(GetBookListAPI, '/books/<key>')
 
     return app
 

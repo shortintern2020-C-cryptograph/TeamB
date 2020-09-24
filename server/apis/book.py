@@ -2,10 +2,12 @@ from flask_restful import Resource, reqparse, abort
 from flask import jsonify
 from models.book import BookModel, BookSchema
 from database import db
+from apis.searchBooks import Search_Books_API
 import json
 import codecs
 import urllib.parse
 import urllib.request
+import requests
 
 class BookListAPI(Resource):
     def __init__(self):
@@ -34,13 +36,16 @@ class BookListAPI(Resource):
         return res, 201
     
 class GetBookListAPI(Resource):
-    def get(self, title):
-        look_for = '%{0}%'.format(title)
-        books = BookModel.query.filter(field.like(look_for)).all()
+    def get(self, key):
+        search_books = Search_Books_API(keyword=key)
+        #books = search_books.get_dict()
+        books = search_books.get_dict()
         #hoge = codecs.open(books, 'w', 'utf-8')
-        #jsonData = BookSchema(many=True).dump(books, hoge, ensure_ascii=False).data
-        jsonData = BookSchema(many=True).dump(books).data
-        return jsonify({'items': jsonData})
+        #jsonData = json.dump(books, ensure_ascii=False).data
+        #jsonData = json.dumps(books, ensure_ascii=False, indent=4)
+        #jsonData = json.dump(books).data
+        return books
+        #return jsonify({'items': jsonData})
 
 class BookAPI(Resource):
     def __init__(self):

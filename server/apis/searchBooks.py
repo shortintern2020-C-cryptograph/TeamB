@@ -32,15 +32,20 @@ class Search_Books_API():
         # query['elements'] = "count,page,first,last,title,author,publisherName,isbn,itemUrl,mediumImageUrl,booksGenreId,booksGenreName"
         query['elements'] = "title,author,booksGenreId,itemCaption,mediumImageUrl,itemUrl"
         return query
-
-    def get_dict(self):
+    
+    def get_res(self):
         query = self.create_query()
         res = requests.get(self.BASE_URI, params=query)
+        return res
+
+
+    def get_dict(self):
+        res = self.get_res()
         return res.json()
 
     def get(self):
         res=self.get_dict()
-        return json.dumps(res, sort_keys = True, indent = 4)
+        return json.dumps(res, sort_keys = True, indent = 4, ensure_ascii=False)
 
     def get_array(self):
         res = self.get_dict()
