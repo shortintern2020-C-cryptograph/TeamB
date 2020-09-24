@@ -4,6 +4,8 @@ from models.book import BookModel, BookSchema
 from database import db
 import json
 import codecs
+import urllib.parse
+import urllib.request
 
 class BookListAPI(Resource):
     def __init__(self):
@@ -18,6 +20,8 @@ class BookListAPI(Resource):
 
     def get(self):
         results = BookModel.query.all()
+        #data = urllib.parse.urlencode(results)
+        #data = data.encode('ascii')
         jsonData = BookSchema(many=True).dump(results).data
         return jsonify({'items': jsonData})
 
@@ -31,7 +35,8 @@ class BookListAPI(Resource):
     
 class GetBookListAPI(Resource):
     def get(self, title):
-        books = BookModel.query.filter_by(title = title).all()
+        look_for = '%{0}%'.format(title)
+        books = BookModel.query.filter(field.like(look_for)).all()
         #hoge = codecs.open(books, 'w', 'utf-8')
         #jsonData = BookSchema(many=True).dump(books, hoge, ensure_ascii=False).data
         jsonData = BookSchema(many=True).dump(books).data
@@ -43,7 +48,7 @@ class BookAPI(Resource):
         self.reqparse.add_argument('title')
         self.reqparse.add_argument('author')
         self.reqparse.add_argument('item_caption')
-        self.reqparse.add_argunment('image_url')
+        self.reqparse.add_argument('image_url')
         self.reqparse.add_argument('item_url')
         self.reqparse.add_argument('image')
         super(BookAPI, self).__init__()
